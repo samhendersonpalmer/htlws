@@ -1,14 +1,44 @@
 ---
-title: "Built in bias"
-author: "Sam Henderson-Palmer"
+title: "How to Lie with Statistics"
 format: 
   dashboard:
-    logo: "images/green_logo_website.png"
+    logo: "images/hex_logo.png"
     orientation: columns
+    nav-buttons:
+      - icon: github
+        href: https://github.com/samhendersonpalmer
+      - icon: linkedin
+        href: https://www.linkedin.com/in/samhendersonpalmer/
 ---
 
+# Built in bias
+
+## Column {width = "65%"}
+
+### Row {height = "10%"}
+
+Selection bias e.g. asking a room full of gun owners if guns are bad for society
+
+When talking about the 'average person', ask yourself "how could anyone have found that out?"
+- The result of a sampling study no better than the sample it's based on
+- Must be a representative sample
+
+Test of a random sample
+- Does every name or thing in the whole group have an equal chance to be included in the sample?
+
+### Row {height = "70%"}
+
+Placeholder text for column 1, row 2
+
+### Row {height = "20%"}
+
+Placeholder text for column 1, row 3
+
 ## Column {width = "35%"}
-Placeholder text for column 1
+
+::: {.panel-tabset .nav_pills}
+
+## Show me reality
 
 ```{r, loadpackages}
 #| echo: false
@@ -17,20 +47,34 @@ library(tidyverse)
 ```
 
 ```{r, printstarwars}
-head(starwars)
+library(waffle)
+
+theme_set(theme_void())
+
+gun_toters <- data.frame(gun_owner = rbinom(100, 1, 0.32))
+
+gun_toters |> mutate(gun_owner = case_when(gun_owner == 1 ~ "Gun owner",
+.default = "Not a gun owner")) -> gun_toters
+
+gun_toters|> 
+count(gun_owner) |> 
+ggplot(mapping = aes(fill = gun_owner, values = n)) +
+  geom_waffle(n_rows = 10,
+    size = 1,
+    color = "white",
+    make_proportional = TRUE,) +
+scale_fill_manual(values = c("#d61c1d", "#eceaea")) +
+  labs(
+    title = "Gun owners",
+    x = NULL, y = NULL, fill = NULL) +
+coord_equal() +
+theme(legend.position = "bottom",
+      plot.title = element_text(hjust = 0.5))
+
 ```
 
-
-## Column {width = "65%"}
-
-### Row {height = "10%"}
-
-Placeholder text for column 2, row 1
-
-### Row {height = "70%"}
-
-Placeholder text for column 2, row 2
-
-### Row {height = "20%"}
-
-Placeholder text for column 2, row 3
+## Lie to me
+```{r plottcars}
+plot(cars)
+```
+:::
