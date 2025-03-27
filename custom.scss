@@ -1,8 +1,24 @@
 /*-- scss:defaults --*/
 // Base document colors
-$body-bg: #181818;
-$body-color: white;
-$link-color: #75AADB;
+$link-color: white;
 
 // Code blocks
 $code-block-bg-alpha: -.8;
+
+.quarto-card {
+          padding: 0;
+          border: none !important;
+        }
+        
+// tabsets
+.panel-tabset .nav-item {
+  font-size: 16px;
+  //font-weight: bold;
+  border: none !important;
+}
+
+
+.panel-tabset .nav-tabs {
+                        background-color: #d61c1d;
+                        }
+
