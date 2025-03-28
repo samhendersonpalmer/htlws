@@ -1,5 +1,6 @@
 # Making hex sticker for logo
-library(hexSticker)
+# install.packages("hexSticker")
+# library(hexSticker)
 
 # Generate sticker
 s <- sticker("images/masks.png",
