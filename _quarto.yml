@@ -4,16 +4,27 @@ project:
 website:
   title: "How to Lie with Statistics"
   sidebar:
+    style: "docked"
+    search: true
     contents:
       - href: index.qmd
         text: About
       - href: dashboard.qmd
         text: Dashboard
+  favicon: "images/hex_logo.png"
+  navbar:
+      logo: "images/hex_logo.png"
+      right:
+      - icon: github
+        href: https://github.com/samhendersonpalmer
+      - icon: linkedin
+        href: https://www.linkedin.com/in/samhendersonpalmer/
 
 format:
   html:
     theme: [simplex, custom.scss]
     toc: true
+
 
 
 

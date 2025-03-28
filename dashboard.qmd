@@ -1,14 +1,8 @@
 ---
-title: "How to Lie with Statistics"
+title: ""
 format: 
   dashboard:
-    logo: "images/hex_logo.png"
     orientation: columns
-    nav-buttons:
-      - icon: github
-        href: https://github.com/samhendersonpalmer
-      - icon: linkedin
-        href: https://www.linkedin.com/in/samhendersonpalmer/
 ---
 
 # Built in bias
@@ -36,7 +30,7 @@ Placeholder text for column 1, row 3
 
 ## Column {width = "35%"}
 
-::: {.panel-tabset .nav_pills}
+::: {.panel-tabset .nav-pills}
 
 ## Show me reality
 
