@@ -3,7 +3,6 @@ title: "About"
 format: 
   html:
     page-layout: full
-engine: knitr
 ---
 :::: {.columns}
 
