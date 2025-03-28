@@ -5,28 +5,21 @@ format:
     orientation: columns
 ---
 
-# Built in bias
+# Who did you ask?
 
 ## Column {width = "65%"}
 
 ### Row {height = "10%"}
 
-Selection bias e.g. asking a room full of gun owners if guns are bad for society
+We like to think the numbers we're bombarded with in the media at the very least represent what they say they do. Unfortunately this is not always the case.
 
-When talking about the 'average person', ask yourself "how could anyone have found that out?"
-- The result of a sampling study no better than the sample it's based on
-- Must be a representative sample
+If we were to ask people about the contentious topic of gun control we would likely expect a mixed response for such a partisan issue. But it would also be easy to skew this to show whatever we wanted to show by, for example, carrying out our gun-opinion survey at a gun convention.
 
-Test of a random sample
-- Does every name or thing in the whole group have an equal chance to be included in the sample?
+We need a fair (representative) sample of people to ask if we are to conclude anything about how we as a people feel about them guns. Thankfully, [Pew Research Center](https://www.pewresearch.org/short-reads/2024/07/24/key-facts-about-americans-and-guns/) is on hand to provide this for us by carefully conducting a survey to a [random sample](https://www.pewresearch.org/social-trends/2017/06/22/guns-report-methodology/) of respondents on both sides of the debate.
 
-### Row {height = "70%"}
-
-Placeholder text for column 1, row 2
-
-### Row {height = "20%"}
-
-Placeholder text for column 1, row 3
+::: {.callout-important}
+The result of a survey is only as good as the sample it's based on. Our greatest defence against this is to ask (or at least think to ourselves): **Who did you ask?**
+:::
 
 ## Column {width = "35%"}
 
@@ -34,41 +27,88 @@ Placeholder text for column 1, row 3
 
 ## Show me reality
 
+> Out of 100 US adults, how many agree that gun violence is a major problem?
+
+If we have a fair (representative) sample of people randomly selected, about half of the population agree.
+
 ```{r, loadpackages}
 #| echo: false
 #| include: false
 library(tidyverse)
+library(patchwork)
+library(waffle)
 ```
 
-```{r, printstarwars}
-library(waffle)
-
+```{r, sample_bias_reality}
 theme_set(theme_void())
+my_colors <- c("#b2d61c", "#eceaea")
+names(my_colors) <- c("Agree", "Do not agree")
 
-gun_toters <- data.frame(gun_owner = rbinom(100, 1, 0.32))
+republicans <- data.frame(agree = c(rep(1, 49), rep(0, 100-49)))
 
-gun_toters |> mutate(gun_owner = case_when(gun_owner == 1 ~ "Gun owner",
-.default = "Not a gun owner")) -> gun_toters
+republicans |> 
+  mutate(agree = case_when(agree == 1 ~ "Agree",
+.default = "Do not agree")) -> republicans
 
-gun_toters|> 
-count(gun_owner) |> 
-ggplot(mapping = aes(fill = gun_owner, values = n)) +
+republicans|> 
+count(agree) |> 
+ggplot(mapping = aes(fill = agree, values = n)) +
   geom_waffle(n_rows = 10,
     size = 1,
-    color = "white",
-    make_proportional = TRUE,) +
-scale_fill_manual(values = c("#d61c1d", "#eceaea")) +
+    color = "white") +
+scale_fill_manual(values = my_colors, breaks = c("Agree")) +
   labs(
-    title = "Gun owners",
+    title = "",
     x = NULL, y = NULL, fill = NULL) +
 coord_equal() +
-theme(legend.position = "bottom",
-      plot.title = element_text(hjust = 0.5))
+theme(legend.position = "none",
+      plot.title = element_text(hjust = 0.5)) -> p1
+
+data.frame(1, 1) |> 
+ggplot() + 
+geom_text(x = 0.5, y = 0.5, label = "49", size = 28, colour = "#b2d61c") +
+geom_text(x = 0.5, y = 0.3, label = "agree", size = 15, colour = "black") -> p2
+
+p1 + p2
 
 ```
 
 ## Lie to me
-```{r plottcars}
-plot(cars)
+
+> Out of 100 US adults, how many agree that gun violence is a major problem?
+
+But if we instead ask a group of republicans, it appears gun violence isn't such a major problem after all...
+
+```{r, sample_bias_lie}
+my_colors <- c("#d61c1d", "#eceaea")
+names(my_colors) <- c("Agree", "Do not agree")
+
+republicans <- data.frame(agree = c(rep(1, 27), rep(0, 100-27)))
+
+republicans |> 
+  mutate(agree = case_when(agree == 1 ~ "Agree",
+.default = "Do not agree")) -> republicans
+
+republicans|> 
+count(agree) |> 
+ggplot(mapping = aes(fill = agree, values = n)) +
+  geom_waffle(n_rows = 10,
+    size = 1,
+    color = "white") +
+scale_fill_manual(values = my_colors, breaks = c("Agree")) +
+  labs(
+    title = "",
+    x = NULL, y = NULL, fill = NULL) +
+coord_equal() +
+theme(legend.position = "none",
+      plot.title = element_text(hjust = 0.5)) -> p1
+
+data.frame(1, 1) |> 
+ggplot() + 
+geom_text(x = 0.5, y = 0.5, label = "27", size = 28, colour = "#d61c1d") +
+geom_text(x = 0.5, y = 0.3, label = "agree", size = 15, colour = "black") -> p2
+
+p1 + p2
+
 ```
 :::
