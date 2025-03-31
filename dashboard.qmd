@@ -11,15 +11,19 @@ format:
 
 ### Row {height = "10%"}
 
+::: {.callout-tip}
+## TL;DR
+
+The result of a survey is only as good as the sample it's based on. Our greatest defence against this is to check (or at least think to ourselves): **Who did you ask?**
+:::
+
+### Row {height = "90%"}
+
 We like to think the numbers we're bombarded with in the media at the very least represent what they say they do. Unfortunately this is not always the case.
 
 If we were to ask people about the contentious topic of gun control we would likely expect a mixed response for such a partisan issue. But it would also be easy to skew this to show whatever we wanted to show by, for example, carrying out our gun-opinion survey at a gun convention.
 
-We need a fair (representative) sample of people to ask if we are to conclude anything about how we as a people feel about them guns. Thankfully, [Pew Research Center](https://www.pewresearch.org/short-reads/2024/07/24/key-facts-about-americans-and-guns/) is on hand to provide this for us by carefully conducting a survey to a [random sample](https://www.pewresearch.org/social-trends/2017/06/22/guns-report-methodology/) of respondents on both sides of the debate.
-
-::: {.callout-important}
-The result of a survey is only as good as the sample it's based on. Our greatest defence against this is to ask (or at least think to ourselves): **Who did you ask?**
-:::
+We need a fair (representative) sample of people to ask if we are to conclude anything about how we as a people feel about them guns. Thankfully, [Pew Research Center](https://www.pewresearch.org/short-reads/2024/07/24/key-facts-about-americans-and-guns/) is on hand to provide this for us by carefully conducting a survey to a [random sample](https://www.pewresearch.org/social-trends/2017/06/22/guns-report-methodology/) of respondents on both sides of the debate, shown to the right.
 
 ## Column {width = "35%"}
 
@@ -41,7 +45,7 @@ library(waffle)
 
 ```{r, sample_bias_reality}
 theme_set(theme_void())
-my_colors <- c("#b2d61c", "#eceaea")
+my_colors <- c("#61aa2d", "#eceaea")
 names(my_colors) <- c("Agree", "Do not agree")
 
 republicans <- data.frame(agree = c(rep(1, 49), rep(0, 100-49)))
@@ -66,7 +70,7 @@ theme(legend.position = "none",
 
 data.frame(1, 1) |> 
 ggplot() + 
-geom_text(x = 0.5, y = 0.5, label = "49", size = 28, colour = "#b2d61c") +
+geom_text(x = 0.5, y = 0.5, label = "49", size = 28, colour = "#61aa2d") +
 geom_text(x = 0.5, y = 0.3, label = "agree", size = 15, colour = "black") -> p2
 
 p1 + p2
